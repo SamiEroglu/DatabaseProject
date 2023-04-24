@@ -1,0 +1,7 @@
+.messagebox {
+  background-color: rgba(198, 20, 46, 0.9);
+}
+.sidemessagebox {
+  background-color: rgba(128, 128, 128, 0.9);
+  border-right: solid 3px;
+}

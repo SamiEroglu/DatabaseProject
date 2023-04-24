@@ -9,7 +9,7 @@ function MainPage() {
       <div style={{ width: "100%", height: "20vh" }}>
         <Navbar />
       </div>
-      <div style={{ width: "80%", height: "70vh" }}>
+      <div style={{ width: "80%", height: "80vh" }}>
         <PostPage />
       </div>
     </div>

@@ -92,7 +92,7 @@ function Navbar() {
             fontSize: "3vh",
             listStyleType: "none",
             gap: "5vh",
-            paddingRight: "32vh",
+            paddingRight: "33vh",
           }}
         >
           <li style={{ cursor: "pointer" }} onClick={routeChange4}>

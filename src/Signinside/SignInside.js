@@ -32,6 +32,9 @@ function SignInside() {
   const routeChange = () => {
     navigate("/home");
   };
+  const routeChange1 = () => {
+    navigate("/signup");
+  };
   const theme = createTheme();
 
   return (
@@ -134,13 +137,8 @@ function SignInside() {
                 Giriş
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Şifremi Unuttum?
-                  </Link>
-                </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link onClick={routeChange1} variant="body2">
                     {"Hesabın Yok Mu?Üye Ol"}
                   </Link>
                 </Grid>

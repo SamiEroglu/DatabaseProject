@@ -1,0 +1,40 @@
+.details input {
+  width: 17vw;
+  height: 1.4vw;
+}
+#preasonid {
+  width: 35vw;
+  height: 12vh;
+  resize: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.backgroundImg {
+  width: 100%;
+  height: 80vh;
+  position: absolute;
+  left: 12.5%;
+  top: 100%;
+  scale: 1.5;
+  z-index: 3;
+  filter: blur(100px);
+  transform: scaleY(-1);
+}
+.foregroundImg {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+.createpostbutton {
+  cursor: pointer;
+  position: relative;
+  background-color: #e28996;
+  font-size: 1vw;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+}
