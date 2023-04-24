@@ -1,0 +1,35 @@
+.search {
+  width: 85%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #c6142e;
+  border-right: none;
+  padding: 5px;
+  height: 1.18vw;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.searchButton {
+  width: 2vw;
+  height: 4vh;
+  border: 0px solid #c6142e;
+  background: #c6142e;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 1vw;
+}
+
+.wrap {
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
