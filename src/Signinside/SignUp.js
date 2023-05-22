@@ -46,6 +46,35 @@ function SignUp() {
     navigate("/");
   };
   const theme = createTheme();
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch("http://localhost:3001/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          surname,
+          tc,
+          phone,
+          email,
+          password,
+        }),
+      });
+  
+      if (response.ok) {
+        // Başarılı kayıt işlemi
+        routeChange(); // Ana sayfaya yönlendirme
+      } else {
+        // Kayıt hatası
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -186,7 +215,7 @@ function SignUp() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={routeChange}
+                onClick={handleSignUp}
               >
                 Üye Ol
               </Button>

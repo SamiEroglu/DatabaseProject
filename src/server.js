@@ -1,12 +1,37 @@
 const express = require('express');
 const path = require('path');
-const knex = (require('./knexfile'));
+const knex = require('knex')(require('./knexfile'));
+const cors = require("cors")
 
 const app = express();
 const port = process.env.PORT || 3001;
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.post('/signup', async (req, res) => {
+  try {
+    const { name, surname, tc, phone, email, password } = req.body;
+    
+    // Veritabanına yeni kullanıcı eklemek için insert işlemi gerçekleştiriyoruz
+    await knex('users').insert({
+      name,
+      surname,
+      username: name, // Kullanıcının isimlerini kullanıcı adı olarak kabul ediyoruz
+      tc,
+      phone,
+      email,
+      password,
+    });
+    
+    res.sendStatus(200); // Başarılı yanıt dönüyoruz
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500); // Hata durumunda 500 hatası dönüyoruz
+  }
+});
+
 
 app.get('/users', async (req, res) => {
   try {
