@@ -78,6 +78,7 @@ function SignInside() {
 
   return (
     <ThemeProvider theme={theme}>
+    <form onSubmit={handleFormSubmit}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -124,7 +125,6 @@ function SignInside() {
               sx={{ mt: 1 }}
               style={{ scale: "0.8" }}
             >
-              <form onSubmit={handleFormSubmit}>
                 <TextField
                   margin="normal"
                   required
@@ -175,7 +175,6 @@ function SignInside() {
                 >
                   Giriş
                 </Button>
-              </form>
               <Grid container>
                 <Grid item>
                   <Link onClick={routeChange1} variant="body2">
@@ -186,7 +185,8 @@ function SignInside() {
             </Box>
           </Box>
         </Grid>
-      </Grid>
+      </Grid>              </form>
+
     </ThemeProvider>
   );
 }
