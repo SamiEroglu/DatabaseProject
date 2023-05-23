@@ -19,11 +19,9 @@ import { getUsers } from "../db/db";
 function SignInside() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isValidEmail, setIsValidEmail] = useState(true);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    setIsValidEmail(event.target.checkValidity());
   };
 
   const handlePasswordChange = (event) => {
@@ -78,7 +76,6 @@ function SignInside() {
 
   return (
     <ThemeProvider theme={theme}>
-    <form onSubmit={handleFormSubmit}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -138,19 +135,7 @@ function SignInside() {
                   value={email}
                   onChange={handleEmailChange}
                 />
-                {!isValidEmail && (
-                  <div
-                    style={{
-                      color: "red",
-                      fontSize: "0.9vw",
-                      lineHeight: "0.2vw",
-                      paddingLeft: ".2vw",
-                      paddingTop: ".1vw",
-                    }}
-                  >
-                    Lütfen geçerli bir email adresi girin
-                  </div>
-                )}
+            
                 <TextField
                   margin="normal"
                   required
@@ -163,15 +148,13 @@ function SignInside() {
                   value={password}
                   onChange={handlePasswordChange}
                 />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Beni Hatırla"
-                />
+                
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  onSubmit={handleFormSubmit}
                 >
                   Giriş
                 </Button>
@@ -185,8 +168,7 @@ function SignInside() {
             </Box>
           </Box>
         </Grid>
-      </Grid>              </form>
-
+      </Grid>             
     </ThemeProvider>
   );
 }
