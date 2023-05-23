@@ -14,6 +14,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { getUsers } from "../db/db";
 
 function SignInside() {
   const [email, setEmail] = useState("");
@@ -28,14 +29,52 @@ function SignInside() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  let navigate = useNavigate();
+
+  const navigate = useNavigate();
+
   const routeChange = () => {
     navigate("/home");
   };
+
   const routeChange1 = () => {
     navigate("/signup");
   };
+
   const theme = createTheme();
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+  
+    // Kullanıcı verilerini oluştur
+    const userData = {
+      email,
+      password
+    };
+  
+    try {
+      // Kayıtlı kullanıcıları al
+      const users = await getUsers();
+  
+      // Giriş yapmak için kullanıcıyı kontrol et
+      const authenticatedUser = users.find(
+        (user) => user.email === userData.email
+      );
+  
+      if (authenticatedUser) {
+        // Kullanıcının girdiği şifreyi doğrula
+        if (authenticatedUser.password === userData.password) {
+          // Başarılı giriş sonrası yönlendirme
+          routeChange();
+        } else {
+          console.log("Giriş başarısız. Kullanıcı adı veya şifre hatalı.");
+        }
+      } else {
+        console.log("Giriş başarısız. Kullanıcı bulunamadı.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,61 +124,62 @@ function SignInside() {
               sx={{ mt: 1 }}
               style={{ scale: "0.8" }}
             >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Adres"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-              />
-              {!isValidEmail && (
-                <div
-                  style={{
-                    color: "red",
-                    fontSize: "0.9vw",
-                    lineHeight: "0.2vw",
-                    paddingLeft: ".2vw",
-                    paddingTop: ".1vw",
-                  }}
+              <form onSubmit={handleFormSubmit}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Adres"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+                {!isValidEmail && (
+                  <div
+                    style={{
+                      color: "red",
+                      fontSize: "0.9vw",
+                      lineHeight: "0.2vw",
+                      paddingLeft: ".2vw",
+                      paddingTop: ".1vw",
+                    }}
+                  >
+                    Lütfen geçerli bir email adresi girin
+                  </div>
+                )}
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Şifre"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Beni Hatırla"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
                 >
-                  Lütfen geçerli bir email adresi girin
-                </div>
-              )}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Şifre"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Beni Hatırla"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={routeChange}
-              >
-                Giriş
-              </Button>
+                  Giriş
+                </Button>
+              </form>
               <Grid container>
                 <Grid item>
                   <Link onClick={routeChange1} variant="body2">
-                    {"Hesabın Yok Mu?Üye Ol"}
+                    Hesabın Yok Mu? Üye Ol
                   </Link>
                 </Grid>
               </Grid>
