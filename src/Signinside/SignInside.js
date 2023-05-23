@@ -5,8 +5,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -28,7 +26,7 @@ function SignInside() {
     setPassword(event.target.value);
   };
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const routeChange = () => {
     navigate("/home");
@@ -41,33 +39,39 @@ function SignInside() {
   const theme = createTheme();
 
   const handleFormSubmit = async (event) => {
+    console.log("l")
     event.preventDefault();
   
     // Kullanıcı verilerini oluştur
+    console.log("x")
     const userData = {
       email,
       password
     };
-  
+  console.log("a");
     try {
       // Kayıtlı kullanıcıları al
       const users = await getUsers();
-  
+      console.log("b")
       // Giriş yapmak için kullanıcıyı kontrol et
       const authenticatedUser = users.find(
         (user) => user.email === userData.email
       );
-  
+      console.log("c")
       if (authenticatedUser) {
         // Kullanıcının girdiği şifreyi doğrula
+        console.log("d")
         if (authenticatedUser.password === userData.password) {
           // Başarılı giriş sonrası yönlendirme
+          console.log("e")
           routeChange();
         } else {
           console.log("Giriş başarısız. Kullanıcı adı veya şifre hatalı.");
+          console.log("f")
         }
       } else {
         console.log("Giriş başarısız. Kullanıcı bulunamadı.");
+        console.log("g")
       }
     } catch (error) {
       console.error(error);
@@ -76,6 +80,7 @@ function SignInside() {
 
   return (
     <ThemeProvider theme={theme}>
+      <form  onSubmit={handleFormSubmit}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -154,7 +159,7 @@ function SignInside() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  onSubmit={handleFormSubmit}
+                 
                 >
                   Giriş
                 </Button>
@@ -168,7 +173,8 @@ function SignInside() {
             </Box>
           </Box>
         </Grid>
-      </Grid>             
+      </Grid> 
+      </form>            
     </ThemeProvider>
   );
 }

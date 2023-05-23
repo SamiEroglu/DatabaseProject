@@ -11,7 +11,7 @@ const knex = require('knex')({
 
 export const getUsers = async () => {
   try {
-    const users = await knex.select('*').from('users');
+    const users = await knex.select('*').from('freelancer.users');
     return users;
   } catch (error) {
     console.error(error);
