@@ -1,5 +1,5 @@
 const knex = require('knex')({
-  client: 'mysql',
+  client: 'mysql', 
   connection: {
     host: '127.0.0.1',
     port: 3306,
@@ -11,12 +11,10 @@ const knex = require('knex')({
 
 export const getUsers = async () => {
   try {
-    const users = await knex.select('*').from('freelancer.users');
+    const users = await knex.select('*').from('users');
     return users;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
-
-

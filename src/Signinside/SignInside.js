@@ -39,39 +39,24 @@ function SignInside() {
   const theme = createTheme();
 
   const handleFormSubmit = async (event) => {
-    console.log("l")
     event.preventDefault();
-  
-    // Kullanıcı verilerini oluştur
-    console.log("x")
     const userData = {
       email,
       password
     };
-  console.log("a");
+    
     try {
-      // Kayıtlı kullanıcıları al
-      const users = await getUsers();
-      console.log("b")
-      // Giriş yapmak için kullanıcıyı kontrol et
-      const authenticatedUser = users.find(
-        (user) => user.email === userData.email
-      );
-      console.log("c")
+      const users = await getUsers(); // getUsers fonksiyonunu await ile çağırın
+      const authenticatedUser = users.find((user) => user.email === userData.email);
+      
       if (authenticatedUser) {
-        // Kullanıcının girdiği şifreyi doğrula
-        console.log("d")
         if (authenticatedUser.password === userData.password) {
-          // Başarılı giriş sonrası yönlendirme
-          console.log("e")
           routeChange();
         } else {
           console.log("Giriş başarısız. Kullanıcı adı veya şifre hatalı.");
-          console.log("f")
         }
       } else {
         console.log("Giriş başarısız. Kullanıcı bulunamadı.");
-        console.log("g")
       }
     } catch (error) {
       console.error(error);
@@ -80,7 +65,6 @@ function SignInside() {
 
   return (
     <ThemeProvider theme={theme}>
-      <form  onSubmit={handleFormSubmit}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -124,45 +108,45 @@ function SignInside() {
             <Box
               component="form"
               noValidate
+              onSubmit={handleFormSubmit}
               sx={{ mt: 1 }}
               style={{ scale: "0.8" }}
             >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Adres"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  type="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-            
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Şifre"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                />
-                
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                 
-                >
-                  Giriş
-                </Button>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Adres"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Şifre"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Giriş
+              </Button>
               <Grid container>
                 <Grid item>
                   <Link onClick={routeChange1} variant="body2">
@@ -173,8 +157,7 @@ function SignInside() {
             </Box>
           </Box>
         </Grid>
-      </Grid> 
-      </form>            
+      </Grid>
     </ThemeProvider>
   );
 }
