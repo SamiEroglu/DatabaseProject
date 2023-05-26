@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getUsers } from "../db/db";
+import axios from 'axios'
 
 function SignInside() {
   const [email, setEmail] = useState("");
@@ -46,9 +46,12 @@ function SignInside() {
     };
     
     try {
-      const users = await getUsers(); // getUsers fonksiyonunu await ile çağırın
-      const authenticatedUser = users.find((user) => user.email === userData.email);
+      let users = await axios.get('http://localhost:3001/users') // getUsers fonksiyonunu await ile çağırın
+
+      users = users.data     
       
+      const authenticatedUser = users.find((user) => user.email === userData.email);
+
       if (authenticatedUser) {
         if (authenticatedUser.password === userData.password) {
           routeChange();
