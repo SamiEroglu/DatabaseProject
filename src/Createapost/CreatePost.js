@@ -57,7 +57,7 @@ function CreatePost() {
   
       if (response.ok) {
         // Başarılı kayıt işlemi
-        console.log("aaaaa") // Ana sayfaya yönlendirme
+        console.log("basarili") // Ana sayfaya yönlendirme
       } else {
         // Kayıt hatası
       }
