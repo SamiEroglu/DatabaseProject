@@ -4,6 +4,25 @@ import "./createpost.css";
 function CreatePost() {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [ptel, setPtel] = useState("");
+  const [fiyat, setFiyat] = useState("");
+
+
+  
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+  const handlePtelChange = (event) => {
+    setPtel(event.target.value);
+  };
+  const handleFiyatChange = (event) => {
+    setFiyat(event.target.value);
+  };
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -19,6 +38,32 @@ function CreatePost() {
       return;
     }
     setSelectedFile(e.target.files[0]);
+  };
+  const handleCreatePost = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch("http://localhost:3001/createpost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          ptel,
+          fiyat,
+        }),
+      });
+  
+      if (response.ok) {
+        // Başarılı kayıt işlemi
+        console.log("aaaaa") // Ana sayfaya yönlendirme
+      } else {
+        // Kayıt hatası
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div
@@ -104,25 +149,25 @@ function CreatePost() {
             <tr>
               <td>İlan Başlığı:</td>
               <td>
-                <input type="text" name="ilanbasligi" maxLength={"25"}></input>
+                <input type="text" name="title" maxLength={"25"}onChange={handleTitleChange}></input>
               </td>
             </tr>
             <tr>
               <td>İlan Açıklaması:</td>
               <td>
-                <input type="text" name="aciklama" maxLength={"25"}></input>
+                <input type="text" name="description" maxLength={"25"} onChange={handleDescriptionChange}></input>
               </td>
             </tr>
             <tr>
               <td>Telefon Numarası:</td>
               <td>
-                <input type="text" name="ptel" maxLength={"11"}></input>
+                <input type="text" name="ptel" maxLength={"11"} onChange={handlePtelChange}></input>
               </td>
             </tr>
             <tr>
               <td>Fiyat:</td>
               <td>
-                <input type="number" name="fiyat"></input>
+                <input type="number" name="fiyat" onChange={handleFiyatChange}></input>
               </td>
             </tr>
             <tr>
@@ -148,6 +193,7 @@ function CreatePost() {
         <button
           className="createpostbutton"
           style={{ position: "absolute", top: "80%", left: "70%" }}
+          onClick={handleCreatePost}
         >
           İlanı Oluştur
         </button>

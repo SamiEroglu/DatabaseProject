@@ -42,6 +42,35 @@ app.get('/users', async (req, res) => {
     res.sendStatus(500);
   }
 });
+app.post('/createpost', async (req, res) => {
+  try {
+    const { title, description, ptel, fiyat } = req.body;
+    
+    // Veritabanına yeni kullanıcı eklemek için insert işlemi gerçekleştiriyoruz
+    await knex('jobs').insert({
+      title,
+      description,
+      ptel, // Kullanıcının isimlerini kullanıcı adı olarak kabul ediyoruz
+      fiyat,
+    });
+    
+    res.sendStatus(200); // Başarılı yanıt dönüyoruz
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500); // Hata durumunda 500 hatası dönüyoruz
+  }
+});
+
+
+app.get('/jobs', async (req, res) => {
+  try {
+    const jobs = await knex.select('*').from('jobs');
+    res.json(jobs);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

@@ -18,3 +18,12 @@ export const getUsers = async () => {
     throw error;
   }
 };
+export const getJobs = async () => {
+  try {
+    const jobs = await knex.select('*').from('jobs');
+    return jobs;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
